@@ -2,7 +2,7 @@ import requests
 import base64
 
 
-API_KEY = "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"
+API_KEY = ""
 
 def asking_sam_altman(image_path, text_prompt, model="gpt-4-turbo"):
     """
