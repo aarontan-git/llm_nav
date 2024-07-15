@@ -1,0 +1,4 @@
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were {estimated_nodes} at the last timestep, where the probability of each estimated node was described by {node_to_prob}. 
+The reasoning for the estimated nodes at the previous timestep were described by {node_to_landmarks}.

@@ -1,0 +1,28 @@
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: {local_plan}
+
+The next navigation plan is: {next_local_plan}
+
+The current estimated nodes are: {estimated_nodes}
+
+The previously executed action was: {previous_action}
+
+The previous observation includes: {previous_landmark_description}
+
+The current observation includes: {current_landmark_description}
+
+The list of currently executable actions inclulde:
+
+{action_list}
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{{'1. Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, '1.1. Local Plan Complete Status': <"complete" or "incomplete">, '2. Action Reasoning': <step by step reasoning for which action to execute next>, '2.1. Action': <selected_action>}}]s

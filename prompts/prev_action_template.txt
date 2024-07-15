@@ -1,0 +1,6 @@
+PREVIOUS ACTION:
+
+The last action you executed was {last_action}, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.

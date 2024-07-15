@@ -1,0 +1,5 @@
+CURRENT OBSERVATION:
+
+{view_description}
+
+Your front view also includes {landmark_description}.

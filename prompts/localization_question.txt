@@ -1,0 +1,11 @@
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.

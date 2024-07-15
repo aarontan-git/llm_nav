@@ -1,0 +1,1420 @@
+Starting Iteration Logs
+------------------------------------------------
+Iteration Index: 0
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [9] at the last timestep, where the probability of each estimated node was described by {9: 1.0}. 
+The reasoning for the estimated nodes at the previous timestep were described by {9: 'The robot is at the starting node with the vending machine on the left.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, the scene appears to be a corridor, likely within a building such as a school or office. Here are the objects and items visible within the scene:
+
+1. **Bulletin Board**: On the left wall, there is a bulletin board with various papers or notices pinned to it. This is typically used for announcements or sharing information in a communal space.
+
+2. **Doors**: There are multiple doors along both sides of the corridor. These are likely entrances to rooms or offices.
+
+3. **Windows**: Above the doors, there are transom windows that allow light to pass through and may also serve for additional visibility into the rooms.
+
+4. **Blue Handrails**: Running along both walls of the corridor at a lower height are blue handrails, which assist in mobility and safety.
+
+5. **Ceiling Lights**: Although not to be focused on, it's observable that there are ceiling lights which illuminate the corridor.
+
+6. **Floor Texture**: The floor has a textured appearance, possibly intended to prevent slipping.
+
+7. **Distant Figures**: At the far end of the corridor, there appear to be figures, possibly people, though they are too distant to describe in detail.
+
+These elements collectively suggest a functional space designed for accessibility and communication, typical of institutional settings like schools, hospitals, or office buildings.
+
+Your front view also includes tv to the front.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.9, 8: 0.1, 9: 0.0}, {7: 'Direct view of TV ahead, which matches the landmark for node 7 on the map.', 8: 'Possible transitional node from node 9 to node 7, but no specific landmarks visible in current view.', 9: 'Starting node, previously left, no longer matches current view.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: 
+
+The current observation includes: tv to the front
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.9, 8: 0.1, 9: 0.0}, {7: 'Direct view of TV ahead, which matches the landmark for node 7 on the map.', 8: 'Possible transitional node from node 9 to node 7, but no specific landmarks visible in current view.', 9: 'Starting node, previously left, no longer matches current view.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "complete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the previous action sequence [9, 8, 7] and the current estimated nodes, node 7 is described as 'Direct view of TV ahead, which matches the landmark for node 7 on the map.' This indicates that the subject has moved past the vending machine and the machine, which were landmarks for nodes 8 and 9, and is now facing the TV, which is a landmark for node 7. The current observation includes 'tv to the front', confirming that the subject is indeed facing the TV and has passed the landmarks mentioned in the current navigation plan.",
+        "Action Reasoning": "Since the current navigation plan is complete, and the next navigation plan is 'TURN_LEFT at ['TV on the right']', the best action to execute next is to prepare for the upcoming left turn as indicated by the next navigation plan. The current observation of 'tv to the front' aligns with the requirement to see the TV before making the left turn.",
+        "Action": "TURN_LEFT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 1
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.9, 8: 0.1, 9: 0.0}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'Direct view of TV ahead, which matches the landmark for node 7 on the map.', 8: 'Possible transitional node from node 9 to node 7, but no specific landmarks visible in current view.', 9: 'Starting node, previously left, no longer matches current view.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see a long corridor with several objects and features:
+
+1. **Bulletin Board**: On the left wall, there is a bulletin board with various papers or notices pinned to it. This is typically used for announcements or sharing information in a communal space.
+
+2. **Doors**: There are multiple doors along both sides of the corridor. These likely lead to different rooms or offices within the building.
+
+3. **Windows**: The corridor has windows on the right side, allowing natural light to enter the space. These windows appear to be closed.
+
+4. **Chairs**: There are chairs visible through the windows on the right, suggesting there are seating areas or waiting areas adjacent to this corridor.
+
+5. **Person**: At the far end of the corridor, there is a person visible. This individual appears to be walking away from the viewpoint.
+
+6. **Handrails**: Both sides of the corridor are equipped with handrails, likely for safety and accessibility.
+
+These elements suggest that the setting is a public or institutional building, such as a school, hospital, or office complex, designed to accommodate a number of people and activities.
+
+Your front view also includes tv to the front.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.95, 8: 0.05, 9: 0.0}, {7: 'Direct view of TV ahead, consistent with previous estimation and matching the landmark for node 7 on the map.', 8: 'Possible transitional node if moving towards node 7, but no specific landmarks visible in current view that match node 8 descriptions.', 9: 'No longer matches current view as the starting node, lacking proximity to landmarks like vending machines.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the front
+
+The current observation includes: tv to the front
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.95, 8: 0.05, 9: 0.0}, {7: 'Direct view of TV ahead, consistent with previous estimation and matching the landmark for node 7 on the map.', 8: 'Possible transitional node if moving towards node 7, but no specific landmarks visible in current view that match node 8 descriptions.', 9: 'No longer matches current view as the starting node, lacking proximity to landmarks like vending machines.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "complete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the front view image and the hand-drawn map, the vending machine and the matching machine are visible on the left side in the image, indicating that the robot has passed these landmarks. The previous action sequence [9, 8, 7] and the current observation of 'tv to the front' confirm that the robot has moved from node 9 to node 7, passing node 8 where the vending machines are located. Therefore, the current navigation plan is complete.",
+        "Action Reasoning": "Since the current navigation plan is complete and the next navigation plan is 'TURN_LEFT at ['TV on the right']', the best action to execute next is to prepare for the upcoming left turn as indicated by the next navigation plan. The TV is currently in front, suggesting the robot is approaching the location where it needs to turn left.",
+        "Action": "TURN_LEFT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 2
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.95, 8: 0.05, 9: 0.0}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'Direct view of TV ahead, consistent with previous estimation and matching the landmark for node 7 on the map.', 8: 'Possible transitional node if moving towards node 7, but no specific landmarks visible in current view that match node 8 descriptions.', 9: 'No longer matches current view as the starting node, lacking proximity to landmarks like vending machines.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see a long corridor with several objects and features:
+
+1. **Bulletin Boards**: There are bulletin boards mounted on the walls along the corridor. These boards display various notices and information.
+
+2. **Doors**: Multiple doors are visible along both sides of the corridor. They appear to be standard interior doors, likely leading to rooms or offices.
+
+3. **Trash Can**: There is a trash can positioned against the wall on the left side of the corridor.
+
+4. **Fire Extinguisher**: A red fire extinguisher is mounted on the wall to the left, near the trash can.
+
+5. **Benches**: There are benches along the corridor for seating. These are located against the walls.
+
+6. **Floor Texture**: The floor has a textured appearance, possibly intended to prevent slipping.
+
+These elements suggest the setting might be a public or institutional building such as a school, hospital, or office building.
+
+Your front view also includes tv to the front.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.98, 8: 0.02, 9: 0.0}, {7: 'Direct view of TV ahead, consistent with the landmark for node 7 on the map.', 8: 'Possible proximity to node 8, but no visible landmarks specific to node 8 such as vending machines.', 9: 'No visible landmarks or features that match the descriptions for node 9.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the front
+
+The current observation includes: tv to the front
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.98, 8: 0.02, 9: 0.0}, {7: 'Direct view of TV ahead, consistent with the landmark for node 7 on the map.', 8: 'Possible proximity to node 8, but no visible landmarks specific to node 8 such as vending machines.', 9: 'No visible landmarks or features that match the descriptions for node 9.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the current and previous observations, which include 'tv to the front', there is no mention of having passed the specified landmarks ('vending machine'). The front view image and the hand-drawn map also do not show the presence of a vending machine in the current view, indicating that the landmarks specified in the current navigation plan have not yet been passed.",
+        "Action Reasoning": "Since the current navigation plan is to go straight and pass specific landmarks which have not yet been passed, and the current observation does not indicate that these landmarks have been passed, the best action to execute next is to continue with 'GO_STRAIGHT'. This action aligns with the current navigation plan and the observed environment.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 3
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.98, 8: 0.02, 9: 0.0}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'Direct view of TV ahead, consistent with the landmark for node 7 on the map.', 8: 'Possible proximity to node 8, but no visible landmarks specific to node 8 such as vending machines.', 9: 'No visible landmarks or features that match the descriptions for node 9.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Vending Machine**: To the left, there is a vending machine that appears to be stocked with various snacks and beverages. The machine has a glass front through which the items are visible, and it features a payment and selection panel.
+
+2. **Bulletin Board**: Further down the hallway on the left, there is a bulletin board mounted on the wall. It seems to display various notices or information, although the specific details are not clear from this distance.
+
+3. **Television**: On the right side of the hallway, there is a television mounted high on the wall. It is turned off in the image.
+
+4. **Trash Can**: Near the vending machine on the left, there is a small trash can for disposing of waste.
+
+5. **Benches**: Along the hallway, there are several benches where people can sit. These are located against the walls on both sides of the hallway.
+
+6. **Water Fountain**: There is a water fountain on the right side of the hallway, near one of the benches, providing a drinking water facility.
+
+These are the main objects visible in the hallway scene depicted in the image.
+
+Your front view also includes tv to the front, vending to the left.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 8, 1: 7, 2: 9}, {8: 0.85, 7: 0.14, 9: 0.01}, {8: 'Vending machine to the left, consistent with node 8 landmarks.', 7: 'TV to the right, consistent with node 7 but also visible from node 8.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the front
+
+The current observation includes: tv to the front, vending to the left
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 8, 1: 7, 2: 9}, {8: 0.85, 7: 0.14, 9: 0.01}, {8: 'Vending machine to the left, consistent with node 8 landmarks.', 7: 'TV to the right, consistent with node 7 but also visible from node 8.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass [vending on the left, machine on the left]'. Based on the current observation which includes 'tv to the front, vending to the left', the vending machine has been observed on the left as specified in the plan. However, there is no mention of another machine on the left in the current observation, suggesting that not all elements of the navigation plan have been passed yet. Therefore, the current navigation plan is not complete.",
+        "Action Reasoning": "Since the current navigation plan is to go straight and pass specific landmarks, and not all landmarks have been passed based on the observations, the best action to continue executing the current plan is to 'GO_STRAIGHT'. This action aligns with the requirement to pass all specified landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 4
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [8, 7, 9] at the last timestep, where the probability of each estimated node was described by {8: 0.85, 7: 0.14, 9: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {8: 'Vending machine to the left, consistent with node 8 landmarks.', 7: 'TV to the right, consistent with node 7 but also visible from node 8.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see a hallway with several objects and features:
+
+1. **Bulletin Board**: On the left side, there is a bulletin board mounted on the wall, filled with various notices or papers.
+
+2. **Paintings/Posters**: Along the walls of the hallway, there are several framed paintings or posters.
+
+3. **Handrails**: Both sides of the hallway are equipped with handrails, likely for safety and assistance.
+
+4. **Doorways**: There are multiple doorways along the hallway, some appear to be open.
+
+5. **Trash Can**: On the left side near the foreground, there is a trash can.
+
+6. **Vending Machine**: Also on the left, there is a vending machine, possibly for snacks or drinks.
+
+7. **Person**: At the far end of the hallway, there appears to be a person, possibly standing or walking.
+
+These elements collectively suggest that the setting might be a public or institutional building such as a school, hospital, or office building.
+
+Your front view also includes tv to the front.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 8, 1: 7, 2: 9}, {8: 0.85, 7: 0.14, 9: 0.01}, {8: 'Vending machine to the left, consistent with node 8 landmarks.', 7: 'TV visible to the front, consistent with node 7 landmarks.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the front, vending to the left
+
+The current observation includes: tv to the front
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 8, 1: 7, 2: 9}, {8: 0.85, 7: 0.14, 9: 0.01}, {8: 'Vending machine to the left, consistent with node 8 landmarks.', 7: 'TV visible to the front, consistent with node 7 landmarks.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the current and previous observations, the previous observation included 'vending to the left' which matches part of the current navigation plan. However, the current observation only includes 'tv to the front', which does not confirm passing the vending machine again or any other specified landmarks in the current plan. Therefore, the plan to 'GO_STRAIGHT' and pass the specified landmarks is not yet complete.",
+        "Action Reasoning": "Since the current navigation plan is not complete and the current observation does not include all the specified landmarks, the best action to continue fulfilling the current navigation plan is to 'GO_STRAIGHT'. This action will potentially allow passing the remaining specified landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 5
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [8, 7, 9] at the last timestep, where the probability of each estimated node was described by {8: 0.85, 7: 0.14, 9: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {8: 'Vending machine to the left, consistent with node 8 landmarks.', 7: 'TV visible to the front, consistent with node 7 landmarks.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects along a corridor:
+
+1. **Vending Machine**: On the left side of the corridor, there is a vending machine that appears to be stocked with various beverages.
+
+2. **Bulletin Board**: Above the vending machine, there is a bulletin board, possibly for notices or information.
+
+3. **Paintings**: Along the right wall of the corridor, there are framed paintings or photographs hanging at regular intervals.
+
+4. **Trash Bin**: There is a trash bin located on the right side of the corridor, near the wall.
+
+5. **Blue Cart**: Further down the corridor, there is a small blue cart, which might be used for carrying supplies or equipment.
+
+These items contribute to the functionality and decor of the corridor, suggesting it might be a public or institutional setting such as a hospital, school, or office building.
+
+Your front view also includes tv to the right.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.65, 8: 0.34, 9: 0.01}, {7: 'TV visible to the right, consistent with node 7 landmarks.', 8: 'Vending machine to the left, consistent with node 8 landmarks.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the front
+
+The current observation includes: tv to the right
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.65, 8: 0.34, 9: 0.01}, {7: 'TV visible to the right, consistent with node 7 landmarks.', 8: 'Vending machine to the left, consistent with node 8 landmarks.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the current and previous observations, the TV was initially observed to the front and is now observed to the right, indicating a change in position relative to the TV but no specific mention of passing the vending machine or other specified landmarks while moving straight. Therefore, the plan to pass the vending machine on the left has not been completed as per the observations.",
+        "Action Reasoning": "Since the current navigation plan to go straight and pass specific landmarks is not complete and the TV, which is a landmark for the next turn, is currently observed to the right, the best action to continue with the plan is to keep moving straight. This will potentially allow passing the vending machine on the left as specified in the current plan.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 6
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.65, 8: 0.34, 9: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'TV visible to the right, consistent with node 7 landmarks.', 8: 'Vending machine to the left, consistent with node 8 landmarks.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see a corridor with several objects and features:
+
+1. **Television**: There is a TV mounted on the wall to the right side of the corridor.
+2. **Paintings or Photographs**: Along the walls of the corridor, there are multiple framed paintings or photographs.
+3. **Doors**: There are several closed doors along both sides of the corridor.
+4. **Bulletin Board**: On the left wall, there appears to be a bulletin board or some sort of notice board.
+5. **Trash Bin**: There is a blue trash bin visible at the far end of the corridor on the right side.
+
+These are the main objects visible in the scene within the corridor.
+
+Your front view also includes tv to the right.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.95, 8: 0.04, 9: 0.01}, {7: 'TV visible to the right, consistent with node 7 landmarks.', 8: 'No specific landmarks for node 8 observed in the current view.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the right
+
+The current observation includes: tv to the right
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.95, 8: 0.04, 9: 0.01}, {7: 'TV visible to the right, consistent with node 7 landmarks.', 8: 'No specific landmarks for node 8 observed in the current view.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the current and previous observations, the landmarks 'vending machine' and 'machine' have not been mentioned as passed or observed directly in the current view. The previous action was moving through nodes [9, 8, 7], but there is no indication that the specific landmarks of 'vending machine' and 'machine' were passed while going straight.",
+        "Action Reasoning": "Since the current navigation plan is not complete and the landmarks have not been passed as required by the plan, the best action to execute next is to continue with 'GO_STRAIGHT'. This action aligns with the current plan to pass the specified landmarks and is also listed as an executable action.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 7
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.95, 8: 0.04, 9: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'TV visible to the right, consistent with node 7 landmarks.', 8: 'No specific landmarks for node 8 observed in the current view.', 9: 'No specific landmarks for node 9 observed, unlikely position.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **TV on a Stand**: To the left of the image, there is a television mounted on a tall, mobile stand with shelves. This stand appears to be equipped with wheels for easy movement.
+
+2. **Artwork**: On the walls of the corridor, there are framed pictures or artworks. One is visible on the right wall, and another can be seen further down the corridor on the left wall.
+
+3. **Trash Bin**: Further down the corridor on the right, there is a blue trash bin.
+
+4. **Bulletin Board**: On the left wall, further down the corridor, there appears to be a bulletin board or some type of notice board.
+
+These are the main objects visible in the corridor scene depicted in the image.
+
+Your front view also includes tv to the left, Right turn detected.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.9, 8: 0.05, 9: 0.05}, {7: 'TV observed on the left, conflicting with map indication for right side at node 7, suggesting possible different orientation or map interpretation error.', 8: 'No specific landmarks for node 8 observed in the current view.', 9: 'No specific landmarks for node 9 observed, maintaining previous low probability.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the right
+
+The current observation includes: tv to the left, Right turn detected
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT', 'RIGHT_TURN']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.9, 8: 0.05, 9: 0.05}, {7: 'TV observed on the left, conflicting with map indication for right side at node 7, suggesting possible different orientation or map interpretation error.', 8: 'No specific landmarks for node 8 observed in the current view.', 9: 'No specific landmarks for node 9 observed, maintaining previous low probability.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'vending on the left, maching on the left']'. Based on the current and previous observations, there is no mention of passing a vending machine or any other specified landmark in the current navigation plan. The previous observation included 'tv to the right' and the current observation includes 'tv to the left, Right turn detected', which does not confirm passing the specified landmarks in the current navigation plan.",
+        "Action Reasoning": "Given that the current navigation plan is not complete and the current observation includes a detected right turn, the best action to execute next is to continue with 'GO_STRAIGHT' to potentially pass the specified landmarks in the current navigation plan.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 8
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.9, 8: 0.05, 9: 0.05}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'TV observed on the left, conflicting with map indication for right side at node 7, suggesting possible different orientation or map interpretation error.', 8: 'No specific landmarks for node 8 observed in the current view.', 9: 'No specific landmarks for node 9 observed, maintaining previous low probability.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see a corridor with several objects:
+
+1. **Television**: Mounted on the right wall, displaying an image with multiple people.
+2. **Handrails**: There are blue handrails on both sides of the corridor, aiding navigation and support.
+3. **Doors**: There are multiple doors along the corridor, both on the left and right sides.
+4. **Trash Bin**: There is a blue trash bin located on the left side near one of the doors.
+5. **Bulletin Board**: On the left wall, there is a bulletin board with various notices or papers attached.
+
+These are the primary objects visible in the scene within the corridor.
+
+Your front view also includes tv to the right, Both left and right turn are detected.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'vending on the left, maching on the left']
+
+The next navigation plan is: TURN_LEFT at ['TV on the right']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.95, 8: 0.03, 9: 0.02}, {7: 'TV observed on the right, matching the map indication for Node 7. Corridor layout and additional features like doors and handrails support the typical hallway environment expected around Node 7.', 8: 'Absence of vending machine and mismatch of other specific landmarks for Node 8.', 9: 'Absence of specific landmarks for Node 9 and mismatch with current observation.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the left, Right turn detected
+
+The current observation includes: tv to the right, Both left and right turn are detected
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT', 'LEFT_TURN', 'RIGHT_TURN']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.95, 8: 0.03, 9: 0.02}, {7: 'TV observed on the right, matching the map indication for Node 7. Corridor layout and additional features like doors and handrails support the typical hallway environment expected around Node 7.', 8: 'Absence of vending machine and mismatch of other specific landmarks for Node 8.', 9: 'Absence of specific landmarks for Node 9 and mismatch with current observation.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass [vending on the left, maching on the left]'. Based on the current and previous observations, there is no mention of passing a vending machine or any similar machine on the left, which are the landmarks specified in the current navigation plan. The previous observation included 'tv to the left, Right turn detected', and the current observation includes 'tv to the right, Both left and right turn are detected', none of which confirm passing the specified landmarks while going straight.",
+        "Action Reasoning": "Since the current navigation plan to go straight and pass specific landmarks has not been completed and there is no indication of having passed these landmarks, the best action to continue with the plan is to execute 'GO_STRAIGHT'. This action aligns with the requirement to pass the landmarks mentioned in the current navigation plan.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 9
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 9 is connected to nodes: [8].\nNode 8 is connected to nodes: [7, 9].\nNode 8 has landmarks: vending on the left, maching on the left.\nNode 7 is connected to nodes: [6, 8].\nNode 7 has landmarks: TV on the right.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.95, 8: 0.03, 9: 0.02}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'TV observed on the right, matching the map indication for Node 7. Corridor layout and additional features like doors and handrails support the typical hallway environment expected around Node 7.', 8: 'Absence of vending machine and mismatch of other specific landmarks for Node 8.', 9: 'Absence of specific landmarks for Node 9 and mismatch with current observation.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects and items:
+
+1. **Television**: Mounted on the right wall, displaying an image.
+2. **People**: There are two individuals in the hallway. One is further down the corridor, and another is closer to the foreground, both appearing to be walking.
+3. **Cleaning Cart**: Near the center of the hallway, there is a cleaning cart, typically used by janitorial staff to carry cleaning supplies and tools.
+4. **Blue Handrails**: Running along both walls of the corridor, there are blue handrails, likely for safety and assistance.
+5. **Paintings/Photographs**: On the left wall, there are framed images or photographs hanging.
+
+These are the primary objects visible in the scene within the hallway.
+
+Your front view also includes tv to the right, Left turn detected.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: TURN_LEFT at ['TV on the right']
+
+The next navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The current estimated nodes are: [{0: 7, 1: 8, 2: 9}, {7: 0.97, 8: 0.02, 9: 0.01}, {7: 'TV observed on the right, matching the map indication for Node 7. Corridor layout and additional features like blue handrails support the typical hallway environment expected around Node 7.', 8: 'Absence of vending machine and mismatch of other specific landmarks for Node 8.', 9: 'Absence of specific landmarks for Node 9 and mismatch with current observation.'}]
+
+The previously executed action was: [9, 8, 7]
+
+The previous observation includes: tv to the right, Both left and right turn are detected
+
+The current observation includes: tv to the right, Left turn detected
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT', 'LEFT_TURN']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 7, 1: 8, 2: 9}, {7: 0.97, 8: 0.02, 9: 0.01}, {7: 'TV observed on the right, matching the map indication for Node 7. Corridor layout and additional features like blue handrails support the typical hallway environment expected around Node 7.', 8: 'Absence of vending machine and mismatch of other specific landmarks for Node 8.', 9: 'Absence of specific landmarks for Node 9 and mismatch with current observation.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'TURN_LEFT at [TV on the right]'. The current observation includes 'tv to the right, Left turn detected', which matches the requirement of the navigation plan to detect a TV on the right and a left turn. However, the previous action executed was a sequence of node visits [9, 8, 7], not specifically a left turn action. Therefore, the plan to specifically execute a left turn at the TV has not been completed.",
+        "Action Reasoning": "Since the current navigation plan to turn left at the TV is not complete and a left turn is detected in the current observation, the best action to execute next is 'LEFT_TURN' to align with the navigation plan and current observations.",
+        "Action": "LEFT_TURN"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 10
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [7, 8, 9] at the last timestep, where the probability of each estimated node was described by {7: 0.97, 8: 0.02, 9: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {7: 'TV observed on the right, matching the map indication for Node 7. Corridor layout and additional features like blue handrails support the typical hallway environment expected around Node 7.', 8: 'Absence of vending machine and mismatch of other specific landmarks for Node 8.', 9: 'Absence of specific landmarks for Node 9 and mismatch with current observation.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Mobile Storage Unit**: On the right side, there is a tall, mobile storage unit with multiple compartments. It appears to be on wheels, which suggests it can be easily moved around. The compartments are of different sizes, and some have what look like handles or slots for labels.
+
+2. **Chairs**: In the background, there are two blue chairs. They are positioned next to each other and appear to be standard office or conference room chairs.
+
+3. **Desk with Equipment**: To the left of the chairs, there is a desk with some type of equipment on it. It looks like it might be some sort of monitoring or control equipment, possibly related to the technical or medical field, given the context of the room.
+
+4. **Cable or Tube**: Running along the floor from the desk area towards the foreground, there is a blue cable or tube. This might be connected to the equipment on the desk or could be serving another function in the room.
+
+These are the primary objects visible in the scene, focusing on the items as requested.
+
+Your front view also includes chairs to the left, chairs_2 to the left.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The next navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The current estimated nodes are: [{0: 1, 1: 3, 2: 2}, {1: 0.85, 3: 0.1, 2: 0.05}, {1: 'Chairs visible in the background, matching the landmark description for Node 1.', 3: 'Desk with equipment possibly representing the medical device at Node 3, but less prominent compared to chairs.', 2: 'Possible transitional node between Node 3 and Node 1, with medical equipment relevance but less direct evidence compared to Node 1.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: tv to the right, Left turn detected
+
+The current observation includes: chairs to the left, chairs_2 to the left
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 3, 2: 2}, {1: 0.85, 3: 0.1, 2: 0.05}, {1: 'Chairs visible in the background, matching the landmark description for Node 1.', 3: 'Desk with equipment possibly representing the medical device at Node 3, but less prominent compared to chairs.', 2: 'Possible transitional node between Node 3 and Node 1, with medical equipment relevance but less direct evidence compared to Node 1.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']'. Based on the previous observation which includes 'tv to the right' and the current observation which includes 'chairs to the left, chairs_2 to the left', there is no mention of passing a computer or medical devices as described in the navigation plan. Therefore, the landmarks specified in the current navigation plan have not been fully passed based on the observations provided.",
+        "Action Reasoning": "Since the current navigation plan is not complete and the observations do not indicate that all specified landmarks have been passed, the best action to continue the navigation plan is to 'GO_STRAIGHT'. This action will allow further progression along the planned route and the opportunity to pass the remaining landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 11
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [1, 3, 2] at the last timestep, where the probability of each estimated node was described by {1: 0.85, 3: 0.1, 2: 0.05}. 
+The reasoning for the estimated nodes at the previous timestep were described by {1: 'Chairs visible in the background, matching the landmark description for Node 1.', 3: 'Desk with equipment possibly representing the medical device at Node 3, but less prominent compared to chairs.', 2: 'Possible transitional node between Node 3 and Node 1, with medical equipment relevance but less direct evidence compared to Node 1.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Chairs**: There are multiple chairs visible. At the far end of the hallway, there are two blue chairs. These chairs are positioned next to each other and appear to be typical office or waiting room chairs.
+
+2. **Desk**: Alongside the blue chairs, there is a small desk or table. It is difficult to discern the exact details from this distance, but it seems to be a standard, possibly utilitarian desk.
+
+3. **Rolling Cart**: To the right side of the image, there is a rolling cart. This cart has multiple shelves and seems to be used for storing or transporting equipment or materials.
+
+4. **Mounted Equipment**: On the left wall, there are several pieces of equipment or devices that are mounted at different heights. These could be storage units, electrical panels, or control systems, but the specific details are unclear from this angle.
+
+These are the primary objects visible in the hallway scene depicted in the image.
+
+Your front view also includes chairs to the front, chairs_2 to the front.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The next navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The current estimated nodes are: [{0: 1, 1: 3, 2: 2}, {1: 0.85, 3: 0.1, 2: 0.05}, {1: 'Presence of multiple chairs and a desk, closely matching the landmark description for Node 1.', 3: "Mounted equipment on the left could represent medical devices, aligning with Node 3's description but less prominent compared to Node 1's landmarks.", 2: 'Possible transitional node between Node 3 and Node 1, with less direct evidence of specific landmarks compared to Node 1.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: chairs to the left, chairs_2 to the left
+
+The current observation includes: chairs to the front, chairs_2 to the front
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 3, 2: 2}, {1: 0.85, 3: 0.1, 2: 0.05}, {1: 'Presence of multiple chairs and a desk, closely matching the landmark description for Node 1.', 3: "Mounted equipment on the left could represent medical devices, aligning with Node 3's description but less prominent compared to Node 1's landmarks.", 2: 'Possible transitional node between Node 3 and Node 1, with less direct evidence of specific landmarks compared to Node 1.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']'. Based on the current and previous observations, which include chairs and chairs_2 to the left and front, there is no mention of passing the specific landmarks such as 'Computer on the right' or 'medical on the left'. Therefore, the current navigation plan is not complete as the specified landmarks have not been passed according to the observations.",
+        "Action Reasoning": "Since the current navigation plan is not complete and the plan is to go straight passing specific landmarks, the best action to execute next is 'GO_STRAIGHT'. This action aligns with the current navigation plan to continue moving forward and observe the required landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 12
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [1, 3, 2] at the last timestep, where the probability of each estimated node was described by {1: 0.85, 3: 0.1, 2: 0.05}. 
+The reasoning for the estimated nodes at the previous timestep were described by {1: 'Presence of multiple chairs and a desk, closely matching the landmark description for Node 1.', 3: "Mounted equipment on the left could represent medical devices, aligning with Node 3's description but less prominent compared to Node 1's landmarks.", 2: 'Possible transitional node between Node 3 and Node 1, with less direct evidence of specific landmarks compared to Node 1.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Chairs**: There are two blue chairs positioned near the center of the image. They appear to be typical office or waiting room chairs with armrests.
+
+2. **Rolling Chair**: There is a black rolling office chair with a higher backrest positioned slightly in front of the two blue chairs. It is placed on a small, dark-colored mat, likely to protect the floor or provide better maneuverability.
+
+3. **Desk**: In front of the rolling chair, there is a small desk or table. It seems to be a typical office desk, possibly with wheels, as it is positioned on the same mat as the rolling chair.
+
+These are the primary objects visible in the scene, focusing on the items as requested.
+
+Your front view also includes chairs to the front, chairs_2 to the front.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The next navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The current estimated nodes are: [{0: 1, 1: 2, 2: 3}, {1: 0.9, 2: 0.07, 3: 0.03}, {1: 'Presence of multiple chairs and a desk, closely matching the landmark description for Node 1.', 2: 'Possible proximity to medical landmarks, though not directly visible in the current view.', 3: 'Consideration due to connection to Node 2 and potential nearby medical devices not visible in the current view.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: chairs to the front, chairs_2 to the front
+
+The current observation includes: chairs to the front, chairs_2 to the front
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 2, 2: 3}, {1: 0.9, 2: 0.07, 3: 0.03}, {1: 'Presence of multiple chairs and a desk, closely matching the landmark description for Node 1.', 2: 'Possible proximity to medical landmarks, though not directly visible in the current view.', 3: 'Consideration due to connection to Node 2 and potential nearby medical devices not visible in the current view.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']'. Based on the current and previous observations, which include 'chairs to the front, chairs_2 to the front', there is no mention of passing the specified landmarks such as 'Computer on the right' or 'medical on the left'. Therefore, the current navigation plan is not complete as the landmarks specified in the plan have not been passed according to the observations.",
+        "Action Reasoning": "Since the current navigation plan is not complete and the plan specifies to 'GO_STRAIGHT' past certain landmarks, the best action to execute next is to continue with 'GO_STRAIGHT'. This action aligns with the current navigation plan and aims to pass the specified landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 13
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [1, 2, 3] at the last timestep, where the probability of each estimated node was described by {1: 0.9, 2: 0.07, 3: 0.03}. 
+The reasoning for the estimated nodes at the previous timestep were described by {1: 'Presence of multiple chairs and a desk, closely matching the landmark description for Node 1.', 2: 'Possible proximity to medical landmarks, though not directly visible in the current view.', 3: 'Consideration due to connection to Node 2 and potential nearby medical devices not visible in the current view.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Chairs**: There are two chairs visible in the center of the room. They are positioned next to each other and have a dark blue upholstery.
+
+2. **Door**: There is an open door on the right side of the room, leading to another area.
+
+3. **Windows**: Above the chairs, there are windows that allow natural light into the room. The windows have a blue tint.
+
+These are the main objects visible in the scene, focusing on the items as requested.
+
+Your front view also includes chairs to the left, chairs_2 to the left.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The next navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The current estimated nodes are: [{0: 1, 1: 2, 2: 3}, {1: 0.9, 2: 0.07, 3: 0.03}, {1: 'Presence of multiple chairs matching the landmark description for Node 1. The room setup with chairs, door, and windows supports this location.', 2: 'Proximity to Node 1 and potential closeness to medical landmarks, though not visible in the current view.', 3: 'Connected to Node 2 and consideration of nearby medical devices, although not visible in the current view.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: chairs to the front, chairs_2 to the front
+
+The current observation includes: chairs to the left, chairs_2 to the left
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 2, 2: 3}, {1: 0.9, 2: 0.07, 3: 0.03}, {1: 'Presence of multiple chairs matching the landmark description for Node 1. The room setup with chairs, door, and windows supports this location.', 2: 'Proximity to Node 1 and potential closeness to medical landmarks, though not visible in the current view.', 3: 'Connected to Node 2 and consideration of nearby medical devices, although not visible in the current view.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "complete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']'. Based on the hand-drawn map and the front view image, the robot has passed the landmarks mentioned in the plan. The front view shows chairs to the left, which are not part of the current navigation plan, indicating that the robot has moved beyond the specified landmarks in the plan.",
+        "Action Reasoning": "Since the current navigation plan is complete, the robot should proceed with the next navigation plan, which is 'TURN_RIGHT at ['Chairs on the left']'. The current observation includes 'chairs to the left', matching the landmark description for the next plan. Therefore, the robot should prepare to execute a right turn at this point.",
+        "Action": "TURN_RIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 14
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [1, 2, 3] at the last timestep, where the probability of each estimated node was described by {1: 0.9, 2: 0.07, 3: 0.03}. 
+The reasoning for the estimated nodes at the previous timestep were described by {1: 'Presence of multiple chairs matching the landmark description for Node 1. The room setup with chairs, door, and windows supports this location.', 2: 'Proximity to Node 1 and potential closeness to medical landmarks, though not visible in the current view.', 3: 'Connected to Node 2 and consideration of nearby medical devices, although not visible in the current view.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Chairs**: There are two chairs positioned to the left side of the image. They have a dark blue upholstery and wooden armrests and legs.
+
+2. **Traffic Cone**: On the right side of the image, there is an orange traffic cone.
+
+These are the main objects visible in the scene based on your instructions to focus on items within the environment and ignoring the ceiling, floor, walls, and lighting.
+
+Your front view also includes chairs to the left, chairs_2 to the left, Both left and right turn are detected.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The next navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The current estimated nodes are: [{0: 1, 1: 2, 2: 3}, {1: 0.95, 2: 0.04, 3: 0.01}, {1: 'Chairs visible on the left and traffic cone on the right align with Node 1 landmarks (chairs and pylon).', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: chairs to the left, chairs_2 to the left
+
+The current observation includes: chairs to the left, chairs_2 to the left, Both left and right turn are detected
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT', 'LEFT_TURN', 'RIGHT_TURN']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 2, 2: 3}, {1: 0.95, 2: 0.04, 3: 0.01}, {1: 'Chairs visible on the left and traffic cone on the right align with Node 1 landmarks (chairs and pylon).', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']'. Based on the current and previous observations, which include 'chairs to the left, chairs_2 to the left', and the front view showing chairs and a traffic cone, there is no mention of passing a computer, medical devices, or additional medical landmarks as specified in the plan. Therefore, the current navigation plan is not complete as the specified landmarks have not been passed.",
+        "Action Reasoning": "Since the current navigation plan is to go straight and pass specific landmarks, and these landmarks have not yet been observed as passed, the best action to continue with the plan is to execute 'GO_STRAIGHT'. This action aligns with the current plan to pass the remaining landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 15
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [1, 2, 3] at the last timestep, where the probability of each estimated node was described by {1: 0.95, 2: 0.04, 3: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {1: 'Chairs visible on the left and traffic cone on the right align with Node 1 landmarks (chairs and pylon).', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see several objects:
+
+1. **Chairs**: There are two blue upholstered chairs with wooden frames positioned close to each other on the left side of the image.
+2. **Tables**: There is a small, possibly wooden table between the two chairs.
+3. **Additional Seating**: In the background, to the far left, there appears to be another chair, similar in design to the two in the foreground.
+4. **Windows**: There are windows along the wall, providing natural light into the room.
+5. **Doorway**: There is an open doorway on the right side of the image, leading to another room or area.
+6. **Clock**: On the wall above the chairs, there is a small clock.
+
+These are the main objects visible in the scene, focusing on the items as requested.
+
+Your front view also includes chairs to the left, chairs_2 to the left, Both left and right turn are detected.
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']
+
+The next navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The current estimated nodes are: [{0: 1, 1: 2, 2: 3}, {1: 0.95, 2: 0.04, 3: 0.01}, {1: 'Chairs visible on the left align with Node 1 landmarks.', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: chairs to the left, chairs_2 to the left, Both left and right turn are detected
+
+The current observation includes: chairs to the left, chairs_2 to the left, Both left and right turn are detected
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT', 'LEFT_TURN', 'RIGHT_TURN']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 2, 2: 3}, {1: 0.95, 2: 0.04, 3: 0.01}, {1: 'Chairs visible on the left align with Node 1 landmarks.', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "incomplete",
+        "Status Reasoning": "The current navigation plan is 'GO_STRAIGHT pass ['', 'Computer on the right', 'medical on the left, device on the left', 'medical on the left']'. Based on the current and previous observations, which include chairs to the left and chairs_2 to the left, there is no mention of passing the specific landmarks 'Computer on the right', 'medical on the left, device on the left', or 'medical on the left'. Therefore, the current navigation plan is not complete as these landmarks have not been confirmed to be passed.",
+        "Action Reasoning": "Since the current navigation plan is to go straight and pass specific landmarks, and these landmarks have not yet been passed or confirmed through observations, the best action to continue with the plan is to execute 'GO_STRAIGHT'. This action aligns with the current plan to pass the mentioned landmarks.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------
+Iteration Index: 16
+Question: [{"role": "system", "content": [{"type": "text", "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"}]}]
+PREVIOUS NODE ESTIMATION:
+
+The estimated nodes were [1, 2, 3] at the last timestep, where the probability of each estimated node was described by {1: 0.95, 2: 0.04, 3: 0.01}. 
+The reasoning for the estimated nodes at the previous timestep were described by {1: 'Chairs visible on the left align with Node 1 landmarks.', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}.
+PREVIOUS ACTION:
+
+The last action you executed was MOVE_FORWARD, in the direction from Node 9 to 0.
+
+You never move backwards. However, since your position in the real world is not limited to the Nodes described in the hand drawn map/graph, there are more positions than there are nodes, 
+As a result, it is possible your current estimated nodes remain at the same as the previous estimated nodes.
+
+CURRENT OBSERVATION:
+
+In the image, I can see the following objects:
+
+1. A traffic cone: It is orange and white, typically used for traffic control or marking hazards.
+2. Doors: There are multiple doors visible along the corridor, including a blue door at the end of the hallway.
+3. A trash can: Located on the right side near the end of the corridor, next to a door.
+
+These are the primary objects visible in the scene, excluding the ceiling, floor, walls, and lighting as per your instructions.
+
+Your front view also includes .
+
+LOCALIZATION QUESTION:
+
+Using PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...
+
+Please estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.
+
+First state your node estimates in detail using the hand drawn map, and the image from your front view.
+
+Then, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]
+
+Your estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.
+
+NAVIGATION QUESTION:
+
+Given:
+The current navigation plan is: TURN_RIGHT at ['Chairs on the left']
+
+The next navigation plan is: GO_STRAIGHT until ['Pylon on the left']
+
+The current estimated nodes are: [{0: 1, 1: 2, 2: 3}, {1: 0.98, 2: 0.01, 3: 0.01}, {1: 'High probability due to the visible traffic cone (pylon) which is a specific landmark for Node 1. The presence of multiple doors and a trash can supports the corridor environment typical for Node 1.', 2: 'Low probability as there are no visible medical landmarks which are key features for Node 2.', 3: 'Very low probability due to the absence of medical devices or medical landmarks, which are essential for Node 3.'}]
+
+The previously executed action was: [6, 5, 4, 3, 2, 1]
+
+The previous observation includes: chairs to the left, chairs_2 to the left, Both left and right turn are detected
+
+The current observation includes: 
+
+The list of currently executable actions inclulde:
+
+['GO_STRAIGHT', 'STOP', 'GO_BACK_TO_LAST_CHECKPOINT']
+
+Answer the following two questions:
+1. Based on your current/previous observation, previous action, and the next navigation plan, is the current navigation plan complete?
+    - Example: if the current local plan is "GO_STRAIGHT pass [landmark_1, landmark_2, landmark_3]", have you passed it based on your current and previous observations? If so, it is complete.
+    - Example: if the current local plan is "TURN_RIGHT at [landmark_1]", was your previous action TURN_RIGHT? If so, it is complete.
+    - Example: if the next navigation plan is "TURN_LEFT at [landmark_1]", have you detected a left turn in your current observation? If so, it means that you have completed the current navigation plan.
+2. If the current navigation plan is not complete, what is the best action (from the list of available actions) to execute? Select only ONE action.
+
+Using the given information, answer the two questions above by reasoning step by step.
+Output the response in JSON format: [{'Local Plan Complete Status': <"complete" or "incomplete">, 'Status Reasoning': <step by step reasoning with the example questions for the local plan complete status>, 'Action Reasoning': <step by step reasoning for which action to execute next>, 'Action': <selected_action>}]s
+RESPONSES:
+Response Info: [{0: 1, 1: 2, 2: 3}, {1: 0.98, 2: 0.01, 3: 0.01}, {1: 'High probability due to the visible traffic cone (pylon) which is a specific landmark for Node 1. The presence of multiple doors and a trash can supports the corridor environment typical for Node 1.', 2: 'Low probability as there are no visible medical landmarks which are key features for Node 2.', 3: 'Very low probability due to the absence of medical devices or medical landmarks, which are essential for Node 3.'}]
+Action Output: ```json
+[
+    {
+        "Local Plan Complete Status": "complete",
+        "Status Reasoning": "The current navigation plan is to TURN_RIGHT at ['Chairs on the left']. The previous action executed was a sequence of movements ending in a right turn (actions [6, 5, 4, 3, 2, 1] where 1 represents the right turn). The previous observation included chairs to the left, which matches the landmark specified in the current navigation plan. Therefore, the right turn was executed as planned in the presence of the specified landmark.",
+        "Action Reasoning": "Since the current navigation plan is complete, the next logical step is to proceed with the next navigation plan, which is to GO_STRAIGHT until ['Pylon on the left']. The front view image shows a pylon on the left, confirming that the environment matches the next navigation plan. Therefore, the best action to execute next is to GO_STRAIGHT.",
+        "Action": "GO_STRAIGHT"
+    }
+]
+```
+
+------------------------------------------------

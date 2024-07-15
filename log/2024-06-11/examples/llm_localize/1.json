@@ -1,0 +1,44 @@
+{
+  "exp": "examples/llm_localize/1",
+  "image_paths": [
+    "/home/asblab/aaron/s3/../files/sensor_input/input_combined_img_17.png"
+  ],
+  "system_msg": [
+    {
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 0 is connected to nodes: [1].\nNode 0 has landmarks: Pylon on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"
+        }
+      ]
+    }
+  ],
+  "question": "PREVIOUS NODE ESTIMATION:\n\nThe estimated nodes were [0, 1, 2] at the last timestep, \nwhere the probability of each estimated node was described by {0: 0.85, 1: 0.1, 2: 0.05}. \nThe reasoning for the estimated nodes at the previous timestep were described by {0: 'Moved forward from Node 1, presence of traffic cone and blue door suggests nearing Node 0.', 1: 'Previous node with chairs on the left, might still be in proximity.', 2: 'Connected to Node 1, but no visible medical landmarks as described for Node 2.'}.\nCURRENT OBSERVATION:\n\nIn the image, there is a prominent orange and white traffic cone positioned on the left side of a hallway. The hallway extends forward, leading to a closed door at the far end. Along the hallway, there are several open doorways on both sides. To the right, near the end of the corridor, there is a small table with what appears to be some items on it, possibly papers or small objects. The floor of the hallway has a textured, blue surface that reflects some light, suggesting it might be slightly wet or polished.\n\nwhich also includes pylon to the left, Left turn detected.\nLOCALIZATION QUESTION:\n\nUsing PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...\n\nPlease estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.\n\nFirst state your node estimates in detail using the hand drawn map, and the image from your front view. Estimate by thinking step by step.\n\nThen, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}}]\n\nYour estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.\n",
+  "model": "gpt-4-turbo",
+  "temperature": 0,
+  "response": {
+    "id": "chatcmpl-9Z3KP2LDd4XJtOTkucUkQUsIHuTO0",
+    "object": "chat.completion",
+    "created": 1718141301,
+    "model": "gpt-4-turbo-2024-04-09",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Based on the current observation and the hand drawn map, the reasoning for the node estimation is as follows:\n\n1. **Presence of Traffic Cone**: The current observation includes a prominent orange and white traffic cone positioned on the left side of the hallway. This matches the landmark description at Node 0 on the hand drawn map, which lists a \"Pylon\" on the left.\n\n2. **Hallway Configuration**: The hallway in the front view extends forward with several open doorways on both sides, leading to a closed door at the far end. This configuration is consistent with the layout around Node 0 on the hand drawn map, where the path leads directly forward.\n\n3. **Floor Texture and Color**: The blue textured surface of the floor in the current observation is a notable feature, although it is not explicitly mentioned as a landmark in the hand drawn map. However, the overall environment and the presence of the traffic cone strongly suggest proximity to Node 0.\n\nGiven these observations and the high probability (0.85) from the previous estimation that the position was near Node 0, it is highly likely that the current position is indeed at Node 0. The landmarks and the configuration of the hallway support this conclusion.\n\nHere is the JSON format estimation based on the analysis:\n\n```json\n[\n    {\"Node\": 0, \"Prob\": 0.95, \"Landmarks\": \"Presence of traffic cone on the left, hallway configuration matches map description for Node 0.\"}\n]\n```\n\nThis estimation reflects a high confidence in being at Node 0, supported by the visual landmarks and the layout of the environment as observed in the current view and described in the hand drawn map."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1782,
+      "completion_tokens": 339,
+      "total_tokens": 2121
+    },
+    "system_fingerprint": "fp_9b82693875"
+  },
+  "ground_truth": 0
+}

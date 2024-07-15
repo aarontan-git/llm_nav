@@ -1,0 +1,44 @@
+{
+  "exp": "examples/llm_localize/1",
+  "image_paths": [
+    "/home/asblab/aaron/s3/../files/sensor_input/input_img_16.png"
+  ],
+  "system_msg": [
+    {
+      "role": "system",
+      "content": [
+        {
+          "type": "text",
+          "text": "SYSTEM DESCRIPTION:\n\nYou are a mobile robot that is navigating within an environment using only a hand drawn map provided by a human. \nTo navigate successfully, you carefully and logically reason about where you are, and where to go next, using the details in the hand drawn map, as well as your view of your environment. \nYour goal is to progress from node 9 to node 0 in the hand drawn map \n\nThe hand drawn map is overlaid with a topological graph to help you with your task, and each node (in red circles) is labeled with a number connected by edges to neighbouring nodes. \n\nThe nodes in the graph currently available are: \n\nNode 6 is connected to nodes: [5, 7].\nNode 5 is connected to nodes: [6, 4].\nNode 5 has landmarks: Computer on the right.\nNode 4 is connected to nodes: [3, 5].\nNode 3 is connected to nodes: [4, 2].\nNode 3 has landmarks: medical on the left, device on the left.\nNode 2 is connected to nodes: [1, 3].\nNode 2 has landmarks: medical on the left.\nNode 1 is connected to nodes: [0, 2].\nNode 1 has landmarks: Chairs on the left.\n\n\nThere are texts in the hand drawn map that describes landmarks that you should use to reason and localize yourself in the map. \nYou must estimate your current node (numeric) in the hand drawn map based on your front view. \nOnly choose from the numeric nodes currently available. \nOutput your estimates in JSON format [{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <node reasoning based on landmarks you see, and the hand drawn map>}]"
+        }
+      ]
+    }
+  ],
+  "question": "PREVIOUS NODE ESTIMATION:\n\nThe estimated nodes were [1, 2, 3] at the last timestep, where the probability of each estimated node was described by {1: 0.95, 2: 0.04, 3: 0.01}. \nThe reasoning for the estimated nodes at the previous timestep were described by {1: 'Chairs visible on the left align with Node 1 landmarks.', 2: 'Proximity to Node 1 and potential movement towards Node 2, but no medical landmarks visible which are expected at Node 2.', 3: 'Low probability due to lack of visible medical devices or medical landmarks which are key features of Node 3.'}.\nCURRENT OBSERVATION:\n\nIn the image, I can see the following objects:\n\n1. A traffic cone: It is orange and white, typically used for traffic control or marking hazards.\n2. Doors: There are multiple doors visible along the corridor, including a blue door at the end of the hallway.\n3. A trash can: Located on the right side near the end of the corridor, next to a door.\n\nThese are the primary objects visible in the scene, excluding the ceiling, floor, walls, and lighting as per your instructions.\n\nYour front view also includes .\nLOCALIZATION QUESTION:\n\nUsing PREVIOUS NODE ESTIMATION, PREVIOUS ACTION, and your CURRENT OBSERVATION...\n\nPlease estimate your current position in the hand drawn map by selecting the top 3 most likely numeric nodes that represent your position in the real world.\n\nFirst state your node estimates in detail using the hand drawn map, and the image from your front view.\n\nThen, using your thought process, output your estimates in JSON format: [{{'Node': <node_number>, 'Prob': <node_probability>, 'Landmarks': <Estimation reasoning based on landmarks you see, and the hand drawn map. Think step by step and be as detailed as possible.>}}]\n\nYour estimation must contain a minimum of one node. Only choose from the numeric nodes currently available.\n",
+  "model": "gpt-4-turbo",
+  "temperature": 0,
+  "response": {
+    "id": "chatcmpl-9ZPxDxl6eRkIfqM86zvPfM3FOZlvv",
+    "object": "chat.completion",
+    "created": 1718228275,
+    "model": "gpt-4-turbo-2024-04-09",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "Based on the current observation and the hand drawn map, let's analyze the visible landmarks and their correlation with the map to estimate the current node:\n\n1. **Traffic Cone**: The presence of a traffic cone, which is typically used for marking or indicating a specific area, is noted in the hand drawn map near Node 1, labeled as \"pylon.\" This suggests proximity to Node 1.\n\n2. **Doors**: Multiple doors are visible in the corridor, including a distinct blue door at the end. The map does not explicitly mark doors except for the general corridor layout, which is common across many nodes. However, the presence of a specific colored door (blue) at the end of the corridor might be a unique identifier if it correlates with any specific node descriptions in future updates of the map.\n\n3. **Trash Can**: The trash can is located on the right side near the end of the corridor. This specific landmark is not noted on the map, but its presence on the right side might help in orientation if specific side-related landmarks are noted near any nodes in future updates.\n\nGiven the previous node estimation heavily favored Node 1 with a probability of 0.95 and the presence of a traffic cone (\"pylon\") which is specifically noted at Node 1, it is highly likely that the current position is still close to or at Node 1. The lack of any medical landmarks or devices rules out Nodes 2 and 3, which are characterized by such features.\n\nHere is the detailed JSON output of the current node estimation:\n\n```json\n[\n    {\"Node\": 1, \"Prob\": 0.98, \"Landmarks\": \"High probability due to the visible traffic cone (pylon) which is a specific landmark for Node 1. The presence of multiple doors and a trash can supports the corridor environment typical for Node 1.\"},\n    {\"Node\": 2, \"Prob\": 0.01, \"Landmarks\": \"Low probability as there are no visible medical landmarks which are key features for Node 2.\"},\n    {\"Node\": 3, \"Prob\": 0.01, \"Landmarks\": \"Very low probability due to the absence of medical devices or medical landmarks, which are essential for Node 3.\"}\n]\n```\n\nThis estimation maintains a high probability for Node 1 based on the visible traffic cone and the general corridor layout, while assigning minimal probabilities to Nodes 2 and 3 due to the lack of their specific landmarks."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1895,
+      "completion_tokens": 502,
+      "total_tokens": 2397
+    },
+    "system_fingerprint": "fp_9b82693875"
+  },
+  "ground_truth": 0
+}
